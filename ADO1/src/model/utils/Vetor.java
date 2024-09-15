@@ -107,9 +107,9 @@ public class Vetor {
                     if (lista[meio].getNome().equals(p)) {
                         return lista[meio];
                     } else if ((lista[meio].getNome().compareTo(p) < 0)) {
-                        inicio = meio + 1;
+                        inicio = meio + 1; //Desce a lista
                     } else if ((lista[meio].getNome().compareTo(p) > 0)) {
-                        fim = meio - 1;
+                        fim = meio - 1; //Sobe a lista
                     } 
                 } else {
                      inicio = meio + 1;
