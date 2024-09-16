@@ -55,7 +55,7 @@ public class Vetor {
      */
     public int pesquisar(int id) {
         for (int i = 0; i < indice; i++) {
-            if (id == lista[i].getId()) {
+            if (lista[i] != null && id == lista[i].getId()) {
                 return i;
             }
         }
@@ -70,7 +70,7 @@ public class Vetor {
      */
     public Cliente pesquisarCadastro(int id) {
         for (int i = 0; i < indice; i++) {
-            if (id == lista[i].getId()) {
+            if (lista[i] != null && id == lista[i].getId()) {
                 return lista[i];
             }
         }
@@ -104,21 +104,29 @@ public class Vetor {
             while (inicio <= fim) {
                 meio = (inicio + fim) / 2;
                 if (lista[meio] != null) {
-                    if (lista[meio].getNome().equals(p)) {
+                    if (lista[meio].getNome().equalsIgnoreCase(p)) {
                         return lista[meio];
-                    } else if ((lista[meio].getNome().compareTo(p) < 0)) {
+                    } else if ((lista[meio].getNome().compareToIgnoreCase(p) < 0)) {
                         inicio = meio + 1; //Desce a lista
-                    } else if ((lista[meio].getNome().compareTo(p) > 0)) {
+                    } else if ((lista[meio].getNome().compareToIgnoreCase(p) > 0)) {
                         fim = meio - 1; //Sobe a lista
-                    } 
+                    }
                 } else {
-                     inicio = meio + 1;
+                    inicio = meio + 1;
                 }
             }
         } else {
-            return null;
+            for (int i = 0; i < indice; i++) {
+                if (lista[i] != null) {
+                    return lista[i];
+                } else {
+                    return null;
+                }
+            }
+
         }
         return null;
+
     }
 
     /**
@@ -129,7 +137,7 @@ public class Vetor {
         if (listaPar()) {
             for (int i = 0; i < indice; i++) {
                 for (int j = i + 1; j < indice; j++) {
-                    if (lista[i].getNome().compareTo(lista[j].getNome()) > 0) {
+                    if (lista[i].getNome().compareToIgnoreCase(lista[j].getNome()) > 0) {
                         aux = lista[i];
                         lista[i] = lista[j];
                         lista[j] = aux;

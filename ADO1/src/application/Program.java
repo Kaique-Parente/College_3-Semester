@@ -34,7 +34,7 @@ public class Program {
             7. Sair do menu
             """;
 
-        int escolha = 0;
+        int escolha = 0, id=0;
         char tipoCliente = ' ';
         String nomeCliente = "";
         Scanner sc = new Scanner(System.in);
@@ -60,14 +60,16 @@ public class Program {
                                 }
                                 break;
                             case 2:
+                                id = Biblioteca.lerInteiro("Para remover o Cliente digite o id: ");
                                 if (tipoCliente == 'c') {
-                                    if (clientesComuns.remover(Biblioteca.lerInteiro("Para remover o Cliente digite o id: "))) {
+                                    if (clientesComuns.remover(id)) {
                                         System.out.println("Sucesso!");
                                     } else {
                                         System.out.println("Cliente não encontrado ou inexistente!");
                                     }
                                 } else {
-                                    if (clientesPrimes.remover(Biblioteca.lerInteiro("Para remover o Cliente digite o id: "))) {
+                                    id = Biblioteca.lerInteiro("Para remover o Cliente digite o id: ");
+                                    if (clientesPrimes.remover(id)) {
                                         System.out.println("Sucesso!");
                                     } else {
                                         System.out.println("Cliente não encontrado ou inexistente!");
@@ -76,14 +78,14 @@ public class Program {
                                 break;
                             case 3:
                                 if (tipoCliente == 'c') {
-                                    int id = clientesComuns.pesquisar(Biblioteca.lerInteiro("Pesquisar a posição do Cliente na lista, digite o id: "));
+                                    id = clientesComuns.pesquisar(Biblioteca.lerInteiro("Pesquisar a posição do Cliente na lista, digite o id: "));
                                     if(id >= 0){
                                         System.out.println("Índice: " + id);
                                     } else {
                                         System.out.println("Cliente não encontrado ou inexistente!");
                                     }
                                 } else {
-                                    int id = clientesPrimes.pesquisar(Biblioteca.lerInteiro("Pesquisar a posição do Cliente na lista, digite o id: "));
+                                    id = clientesPrimes.pesquisar(Biblioteca.lerInteiro("Pesquisar a posição do Cliente na lista, digite o id: "));
                                     if(id >= 0){
                                         System.out.println("Índice: " + id);
                                     } else {
@@ -93,14 +95,16 @@ public class Program {
                                 break;
                             case 4:
                                 if (tipoCliente == 'c') {
-                                    Cliente newCliente = clientesPrimes.pesquisarCadastro(Biblioteca.lerInteiro("Digite o id do Cliente: "));
+                                    id = Biblioteca.lerInteiro("Digite o id do Cliente: ");
+                                    Cliente newCliente = clientesComuns.pesquisarCadastro(id);
                                     if (newCliente != null) {
                                         System.out.println(newCliente);
                                     } else {
                                         System.out.println("Cliente não encontrado ou inexistente!");
                                     }
                                 } else {
-                                    Cliente newCliente = clientesPrimes.pesquisarCadastro(Biblioteca.lerInteiro("Digite o id do Cliente: "));
+                                    id = Biblioteca.lerInteiro("Digite o id do Cliente: ");
+                                    Cliente newCliente = clientesPrimes.pesquisarCadastro(id);
                                     if (newCliente != null) {
                                         System.out.println(newCliente);
                                     } else {
@@ -118,7 +122,8 @@ public class Program {
                                         System.out.println("Cliente não encontrado ou inexistente!");
                                     }
                                 } else {
-                                    Cliente newCliente = clientesPrimes.buscaBinaria(Biblioteca.lerString("Digite o nome do Cliente: "));
+                                    String v = Biblioteca.lerString("Digite o nome do Cliente: ");
+                                    Cliente newCliente = clientesComuns.buscaBinaria(v);
                                     if (newCliente != null) {
                                         System.out.println(newCliente);
                                     } else {
@@ -139,7 +144,6 @@ public class Program {
                                 System.out.println("Opção Inválida!");
                                 break;
                         }
-
                     }
                 } else if (tipoCliente == 's') {
                     break;
