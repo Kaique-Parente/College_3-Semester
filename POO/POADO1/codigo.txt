@@ -1,0 +1,128 @@
+package application;
+
+import model.entities.ItemPedido;
+import model.entities.Pedido;
+import model.entities.Produto;
+
+public class Program {
+    public static void main(String[] args) {
+        Produto p1 = new Produto(1001, 12.99f, "Manga Rosa");
+        Produto p2 = new Produto(1002, 5.99f, "Abacate");
+        Produto p3 = new Produto(1003, 7.99f, "Maça Argentina");
+        
+        ItemPedido it1 = new ItemPedido(2, p1);
+        ItemPedido it2 = new ItemPedido(3, p2);
+        ItemPedido it3 = new ItemPedido(4, p3);
+        
+        Pedido p = new Pedido(it1);
+        p.adicionar_item(it2);
+        p.adicionar_item(it3);
+        
+        System.out.println("Valor total: " + p.obter_total());
+    }
+}
+
+
+
+package model.entities;
+
+public class ItemPedido {
+    
+    private Integer quantidade;
+    private Produto produto;
+
+    public ItemPedido(Integer quantidade, Produto produto) {
+        this.quantidade = quantidade;
+        this.produto = produto;
+    }
+
+    public Integer getQuantidade() {
+        return quantidade;
+    }
+
+    public void setQuantidade(Integer quantidade) {
+        this.quantidade = quantidade;
+    }
+
+    public Produto getProduto() {
+        return produto;
+    }
+
+    public void setProduto(Produto produto) {
+        this.produto = produto;
+    }
+}
+
+
+
+package model.entities;
+
+import java.util.ArrayList;
+
+public class Pedido {
+
+    private Float valor_total = 0f;
+    private ArrayList<ItemPedido> itens;
+
+    public Pedido(ItemPedido item) {
+        this.itens = new ArrayList<>();
+        itens.add(item);
+    }
+
+    public void adicionar_item(ItemPedido item) {
+        itens.add(item);
+    }
+
+    public ArrayList<ItemPedido> getItens() {
+        return itens;
+    }
+
+    public Float obter_total() {
+        for(ItemPedido i : itens){
+            valor_total += i.getQuantidade() * i.getProduto().getValor();
+        }
+        
+        return valor_total;
+    }
+}
+
+
+
+package model.entities;
+
+public class Produto {
+    
+    private Integer codigo;
+    private Float valor;
+    private String descricao;
+
+    public Produto(Integer codigo, Float valor, String descricao) {
+        this.codigo = codigo;
+        this.valor = valor;
+        this.descricao = descricao;
+    }
+
+    public Integer getCodigo() {
+        return codigo;
+    }
+
+    public void setCodigo(Integer codigo) {
+        this.codigo = codigo;
+    }
+
+    public Float getValor() {
+        return valor;
+    }
+
+    public void setValor(Float valor) {
+        this.valor = valor;
+    }
+
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
+    }
+}
