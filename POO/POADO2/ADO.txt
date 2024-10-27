@@ -1,0 +1,459 @@
+KAIQUE PARENTE DA SILVA 3NC
+
+// EXERCICIO01
+
+package models;
+
+/**
+ *
+ * @author kaiqu
+ */
+public class Funcionario {
+    private String nome;
+    private double salario;
+
+    public Funcionario() {}
+
+    public Funcionario(String nome, double salario) {
+        this.nome = nome;
+        this.salario = salario;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public double getSalario() {
+        return salario;
+    }
+
+    public void addAumento(double valor){
+        salario += valor;
+    }
+    
+    public double ganhoAnual(){
+        return salario*12;
+    }
+    
+    public void exibeDados(){
+        System.out.println("Nome: " + nome + "\nSalario: " + salario);
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+package models;
+
+/**
+ *
+ * @author kaiqu
+ */
+public class Assistente extends Funcionario{
+    private int numeroMatricula;
+
+    public Assistente(int numeroMatricula, String nome, double salario) {
+        super(nome, salario);
+        this.numeroMatricula = numeroMatricula;
+    }
+
+    public int getNumeroMatricula() {
+        return numeroMatricula;
+    }
+
+    public void setNumeroMatricula(int numeroMatricula) {
+        this.numeroMatricula = numeroMatricula;
+    }
+    
+    @Override
+    public void exibeDados(){
+        System.out.println("Nome: " + getNome() + "\nSalario: " + getSalario() + "\nNúmero Matrícula: " + numeroMatricula);
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+package models;
+
+/**
+ *
+ * @author kaiqu
+ */
+public class Tecnico extends Assistente{
+    private double bonusSalarial;
+
+    public Tecnico(int numeroMatricula, String nome, double salario, double bonusSalarial) {
+        super(numeroMatricula, nome, salario);
+        this.bonusSalarial = bonusSalarial;
+    }
+
+    public double getBonusSalarial() {
+        return bonusSalarial;
+    }
+
+    public void setBonusSalarial(double bonusSalarial) {
+        this.bonusSalarial = bonusSalarial;
+    }
+
+    @Override
+    public double ganhoAnual(){
+        return (getSalario() + bonusSalarial) * 12;
+    }
+    
+    @Override
+    public void exibeDados(){
+        System.out.println("Nome: " + getNome() + "\nSalario: " + getSalario() + "\nNúmero Matrícula: " + getNumeroMatricula() 
+                +"\nBonus Salarial: " + bonusSalarial);
+    }
+    
+}
+
+
+
+
+
+
+
+
+
+
+package models;
+
+/**
+ *
+ * @author kaiqu
+ */
+public class Administrativo extends Assistente{
+    private String turno;
+    private double adicionalNoturno;
+
+    public Administrativo(int numeroMatricula, String nome, double salario, String turno, double adicionalNoturno) {
+        super(numeroMatricula, nome, salario);
+        this.turno = turno;
+        this.adicionalNoturno = adicionalNoturno;
+    }
+
+    public String getTurno() {
+        return turno;
+    }
+
+    public void setTurno(String turno) {
+        this.turno = turno;
+    }
+
+    public double getAdicionalNoturno() {
+        return adicionalNoturno;
+    }
+
+    public void setAdicionalNoturno(double adicionalNoturno) {
+        this.adicionalNoturno = adicionalNoturno;
+    }
+    
+    @Override
+    public double ganhoAnual(){
+        if(turno.equalsIgnoreCase("noite")){
+            return (getSalario() + adicionalNoturno) * 12;
+        }
+        return getSalario() * 12;
+    }
+    
+    @Override
+    public void exibeDados(){
+        System.out.println("Nome: " + getNome() + "\nSalario: " + getSalario() + "\nNúmero Matrícula: " + getNumeroMatricula() 
+                +"\nTurno: " + turno + "\nAdicional Noturno: " + adicionalNoturno);
+    }
+}
+
+
+
+
+
+
+//EXERCICIO02
+package models;
+
+/**
+ *
+ * @author kaiqu
+ */
+public class Ingresso {
+    private double valor;
+
+    public Ingresso(double valor) {
+        this.valor = valor;
+    }
+
+    public double getValor() {
+        return valor;
+    }
+
+    public void setValor(double valor) {
+        this.valor = valor;
+    }
+    
+    public void imprimeValor(){
+        System.out.println("Valor: " + valor);
+    }
+}
+
+package models;
+
+/**
+ *
+ * @author kaiqu
+ */
+public class VIP extends Ingresso{
+    private double valorAdicional;
+
+    public VIP(double valor, double valorAdicional) {
+        super(valor);
+        this.valorAdicional = valorAdicional;
+    }
+
+    public double getValorAdicional() {
+        return valorAdicional;
+    }
+
+    public void setValorAdicional(double valorAdicional) {
+        this.valorAdicional = valorAdicional;
+    }
+    
+    public double retornaValorTotal(){
+        return super.getValor() + valorAdicional;
+    }
+    
+}
+
+
+package models;
+
+/**
+ *
+ * @author kaiqu
+ */
+public class Normal extends Ingresso{
+    
+    public Normal(double valor) {
+        super(valor);
+    }
+    
+    public void exibirTipo(){
+        System.out.println("Ingresso Normal!");
+    }
+}
+
+package models;
+
+/**
+ *
+ * @author kaiqu
+ */
+public class CamaroteInferior extends VIP{
+    private String localizacao;
+
+    public CamaroteInferior(double valor, double valorAdicional, String localizacao) {
+        super(valor, valorAdicional);
+        this.localizacao = localizacao;
+    }
+
+    public String getLocalizacao() {
+        return localizacao;
+    }
+
+    public void setLocalizacao(String localizacao) {
+        this.localizacao = localizacao;
+    }
+
+    public void exibirLocalizacao(){
+        System.out.println("Localização: " + localizacao);
+    }
+}
+
+package models;
+
+/**
+ *
+ * @author kaiqu
+ */
+public class CamaroteSuperior extends VIP{
+
+    public CamaroteSuperior(double valor, double valorAdicional) {
+        super(valor, valorAdicional);
+    }
+    
+    public void exibirValor(){
+        System.out.println("Valor: " + getValor() + "\nValor Adicional: " + getValorAdicional() + "\nTotal: " + (getValor()+getValorAdicional()));
+    }
+}
+
+//EXERCICIO03
+package models;
+
+/**
+ *
+ * @author kaiqu
+ */
+public class Animal {
+    private String nome;
+    private int idade;
+
+    public Animal(int idade) {
+        this.nome = "";
+        this.idade = idade;
+    }
+
+    public Animal(String nome, int idade) {
+        this.nome = nome;
+        this.idade = idade;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public int getIdade() {
+        return idade;
+    }
+
+    public void setIdade(int idade) {
+        this.idade = idade;
+    }
+
+    public void dormir(){
+        if(!nome.equals("")){
+            System.out.println("O(a) " + nome + " está dormindo!");
+        } else {                        
+            System.out.println("O animal está dormindo!");
+        }
+    }
+}
+
+package models;
+
+/**
+ *
+ * @author kaiqu
+ */
+public class Cao extends Animal{
+    private double peso;
+
+    public Cao(int idade, String nome, double peso) {
+        super(nome, idade);
+        this.peso = peso;
+    }
+
+    public double getPeso() {
+        return peso;
+    }
+
+    public void setPeso(double peso) {
+        this.peso = peso;
+    }
+
+    public void ladrar(){
+        if(!getNome().equals("")){
+            System.out.println("O(a) " + getNome() + " está ladrando!");
+        } else {                        
+            System.out.println("O cachorro está ladrando!");
+        }
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+package models;
+
+/**
+ *
+ * @author kaiqu
+ */
+public class Gato extends Animal{
+    private int numeroDeVidas;
+
+    public Gato(int idade, String nome, int numeroDeVidas) {
+        super(nome, idade);
+        this.numeroDeVidas = numeroDeVidas;
+    }
+
+    public int getNumeroDeVidas() {
+        return numeroDeVidas;
+    }
+
+    public void setNumeroDeVidas(int numeroDeVidas) {
+        this.numeroDeVidas = numeroDeVidas;
+    }
+    
+    public void subirArvore(){
+        if(!getNome().equals("")){
+            System.out.println("O(a) " + getNome() + " está subindo na árvore!");
+        } else {                        
+            System.out.println("O gato está subindo na árvore!");
+        }
+    }
+    
+}
+
+	
